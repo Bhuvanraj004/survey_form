@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="radio"] {
+            margin-top: 5px;
+            margin-bottom: 15px;
+            width: calc(100% - 22px);
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        input[type="radio"] {
+            width: auto;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: #ddd;
+            margin: 30px 0;
+        }
+    </style>
+    <h2>Survey Form</h2>
+    <!-- Form using GET method -->
+    <form action="/post" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="gender">Gender:</label><br>
+        <input type="radio" id="male" name="gender" value="male" required>
+        <label for="male">Male</label><br>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label><br>
+        <input type="radio" id="other" name="gender" value="other">
+        <label for="other">Other</label><br><br>
+
+        <label for="age">Age:</label><br>
+        <input type="number" id="age" name="age" min="0" max="120" required><br><br>
+
+        <!-- Button to retrieve values using GET method -->
+        <input type="submit" value="Submit">
+    </form>
+
+    <br><hr><br>
+
+    <!-- Form using POST method 
+    <form action="/submit-survey" method="post">
+        <input type="hidden" id="name-hidden" name="name">
+        <input type="hidden" id="gender-hidden" name="gender">
+        <input type="hidden" id="age-hidden" name="age">
+
+        Button to submit form using POST method 
+        <input type="submit" value="Submit">
+    </form> -->
+
+    <script>
+        // This script is used to pass the values from the GET form to the POST form
+        const getForm = document.querySelector('form[action="/submit-survey"][method="get"]');
+        const postForm = document.querySelector('form[action="/submit-survey"][method="post"]');
+
+        getForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent GET form submission
+            const formData = new FormData(getForm);
+            document.getElementById('name-hidden').value = formData.get('name');
+            document.getElementById('gender-hidden').value = formData.get('gender');
+            document.getElementById('age-hidden').value = formData.get('age');
+        });
+    </script>
+</body>
+</html>
